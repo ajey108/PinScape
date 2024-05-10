@@ -13,7 +13,13 @@ const userSchema = mongoose.Schema({
   boards: {
     type: Array,
     default: []
-  }
+  },
+  posts:[
+    {
+      type:mongoose.Schema.Types.ObjectId,
+      ref:"post"
+    }
+  ]
 });
 
 // Plugin passport-local-mongoose to enable username and password authentication
