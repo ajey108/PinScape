@@ -1,0 +1,18 @@
+
+  <% include ./Partials/Header.ejs %>
+  <div class="w-full h-screen  flex items-center justify-center">
+    <div class="w-60 h-90 bg-zinc-300">
+      <h1>Welcome To Pintrest</h1>
+      <form action="/login" method="post">
+        <input class="my-2" type="text" name="username" placeholder="username">
+        <input class="my-2" type="password" name="password" placeholder="password"> <br>
+        
+        <a class="my-2" href="#">Forgot password</a><br>
+        <input type="submit" value="Login">
+        <p class="text-sm">Lorem ipsum dolor, sit amet consectetur a</p>
+      </form> <br>
+
+      <a href="/register">Dont Have a account?</a>
+    </div>
+  </div>
+  <% include ./Partials/Footer.ejs %>

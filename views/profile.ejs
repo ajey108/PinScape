@@ -1,0 +1,63 @@
+<% include ./Partials/Header.ejs %>
+
+    <div class="profile w-full bg-zinc-800 text-zinc-200">
+        <form id="uploadform" hidden action="/fileupload" method="post" enctype="multipart/form-data">
+            <input type="file" name="image">
+        </form>
+        <div class="profile-dets ">
+
+          
+            <div class="w-40 h-40 bg-zinc-200 rounded-full my-4 mx-4 py-4  " >
+                <img src="/images/uploads/<%=user.profileImage %>" class="rounded-full object-cover ">
+
+                    <div class="relative ">
+                        <span id="uploadicon" class="w-10 h-10 bg-zinc-200">
+                            <i class="ri-pencil-line h-10 absolute bottom-0 right-0 text-zince-100"></i>
+                        </span>
+                    </div>
+            </div>
+
+            <h1 class="text-3xl font-semibold">Jay</h1>
+            <h4 class="text-3xl font-semibold">@username</h4>
+            <a href="/edit" class="px-8  mb-5 bg-zinc-200 text-zinc-600 rounded-full">Edit</a>
+        </div>
+    </div>
+
+    <div class="cards w-full  my-8">
+
+
+
+
+
+        <div class="card w-[10%] h-40 rounded-sm bg-zinc-200 overflow-hidden">
+            <img src="https://images.pexels.com/photos/21733725/pexels-photo-21733725/free-photo-of-a-woman-taking-a-picture-of-the-water-from-a-boat.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
+                class="w-full h-full object-cover">
+        </div>
+
+
+    </div>
+
+    <div class="details text-zinc-200 my-4 py-4">
+        <h3>All pins </h3>
+        <h5>20 pins</h5>
+
+    </div>
+
+    <a href="/add" class="w-[150px]   bg-green-900 rounded-lg text-zinc-200" >Add New Pins</a>
+
+  
+
+    <script>
+        let uploadicon = document.querySelector('#uploadicon');
+
+        uploadicon.addEventListener("click",function(){
+            document.querySelector("#uploadform input").click();
+        })
+
+        document.querySelector("#uploadform input").addEventListener("change",function(){
+            document.querySelector("#uploadform").submit();
+        })
+
+        
+    </script>
+    <% include ./Partials/Footer.ejs %>
