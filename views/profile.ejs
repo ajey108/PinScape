@@ -30,7 +30,7 @@
 
 
         <div class="card w-[10%] h-40 rounded-sm bg-zinc-200 overflow-hidden">
-            <img src="https://images.pexels.com/photos/21733725/pexels-photo-21733725/free-photo-of-a-woman-taking-a-picture-of-the-water-from-a-boat.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
+            <img src="/images/uploads/ <%= user.posts[0].image %>"
                 class="w-full h-full object-cover">
         </div>
 
@@ -38,8 +38,8 @@
     </div>
 
     <div class="details text-zinc-200 my-4 py-4">
-        <h3>All pins </h3>
-        <h5>20 pins</h5>
+        <h3>Your uploaded pins </h3>
+        <h5><%= user.posts.length %>Pins</h5>
 
     </div>
 

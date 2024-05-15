@@ -20,7 +20,8 @@ router.get('/register', function (req, res, next) {
   res.render('register',{nav:false});
 });
 router.get('/profile', isLoggedIn, async function (req, res, next) {
-  const user = await userModel.findOne({username:req.session.passport.user});
+  const user = await userModel.findOne({username:req.session.passport.user}).populate("posts")
+
   res.render('profile',{user,nav:true});
 });
 
@@ -44,7 +45,7 @@ router.post('/createpost', isLoggedIn,upload.single("postimage"), async function
 });
 
 
-router.post('/fileupload', isLoggedIn, upload.single("postimage"), async function (req, res, next) {
+router.post('/fileupload', isLoggedIn, upload.single("image"), async function (req, res, next) {
  const user = await userModel.findOne({username:req.session.passport.user});
  user.profileImage = req.file.filename;
  await user.save();
