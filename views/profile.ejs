@@ -1,63 +1,47 @@
 <% include ./Partials/Header.ejs %>
 
-    <div class="profile w-full bg-zinc-800 text-zinc-200">
-        <form id="uploadform" hidden action="/fileupload" method="post" enctype="multipart/form-data">
-            <input type="file" name="image">
-        </form>
-        <div class="profile-dets ">
+<div class="profile w-full bg-zinc-800 text-zinc-200 p-6">
+    <form id="uploadform" hidden action="/fileupload" method="post" enctype="multipart/form-data">
+        <input type="file" name="image">
+    </form>
+    <div class="profile-dets flex flex-col items-center">
 
-          
-            <div class="w-40 h-40 bg-zinc-200 rounded-full my-4 mx-4 py-4  " >
-                <img src="/images/uploads/<%=user.profileImage %>" class="rounded-full object-cover ">
-
-                    <div class="relative ">
-                        <span id="uploadicon" class="w-10 h-10 bg-zinc-200">
-                            <i class="ri-pencil-line h-10 absolute bottom-0 right-0 text-zince-100"></i>
-                        </span>
-                    </div>
-            </div>
-
-            <h1 class="text-3xl font-semibold">Jay</h1>
-            <h4 class="text-3xl font-semibold">@username</h4>
-            <a href="/edit" class="px-8  mb-5 bg-zinc-200 text-zinc-600 rounded-full">Edit</a>
-        </div>
-    </div>
-
-    <div class="cards w-full  my-8">
-
-
-
-
-
-        <div class="card w-[10%] h-40 rounded-sm bg-zinc-200 overflow-hidden">
-            <img src="/images/uploads/ <%= user.posts[0].image %>"
-                class="w-full h-full object-cover">
+        <div class="relative w-40 h-40 bg-zinc-200 rounded-full my-4">
+            <img src="/images/uploads/<%= user.profileImage %>" class="rounded-full object-cover w-full h-full">
+            <span id="uploadicon" class="absolute bottom-0 right-0 w-10 h-10 bg-zinc-700 text-zinc-200 flex items-center justify-center rounded-full cursor-pointer">
+                <i class="ri-pencil-line"></i>
+            </span>
         </div>
 
-
+        <h1 class="text-3xl font-semibold mb-2">Jay</h1>
+        <h4 class="text-xl font-semibold mb-5">@<%= user.username %></h4>
+        <a href="/edit" class="px-8 mb-5 bg-zinc-200 text-zinc-800 rounded-full py-2 hover:bg-zinc-300">Edit Profile</a>
     </div>
+</div>
 
-    <div class="details text-zinc-200 my-4 py-4">
-        <h3>Your uploaded pins </h3>
-        <h5><%= user.posts.length %>Pins</h5>
+<div class="cards w-full flex flex-wrap justify-start my-8 gap-4 p-4">
+    <% user.posts.forEach(post => { %>
+        <div class="card w-40 h-40 rounded-lg bg-zinc-200 overflow-hidden">
+            <img src="/images/uploads/<%= post.image %>" class="w-full h-full object-cover">
+        </div>
+    <% }) %>
+</div>
 
-    </div>
+<div class="details text-zinc-200 my-4 py-4 px-4">
+    <h3 class="text-2xl mb-2">Your uploaded pins</h3>
+    <h5 class="text-xl"><%= user.posts.length %> Pins</h5>
+</div>
 
-    <a href="/add" class="w-[150px]   bg-green-900 rounded-lg text-zinc-200" >Add New Pins</a>
+<a href="/add" class="block w-[150px] mx-auto bg-green-700 rounded-lg text-zinc-200 text-center py-2 my-4 hover:bg-green-800">Add New Pins</a>
 
-  
+<script>
+    document.querySelector('#uploadicon').addEventListener('click', function() {
+        document.querySelector('#uploadform input').click();
+    });
 
-    <script>
-        let uploadicon = document.querySelector('#uploadicon');
+    document.querySelector('#uploadform input').addEventListener('change', function() {
+        document.querySelector('#uploadform').submit();
+    });
+</script>
 
-        uploadicon.addEventListener("click",function(){
-            document.querySelector("#uploadform input").click();
-        })
-
-        document.querySelector("#uploadform input").addEventListener("change",function(){
-            document.querySelector("#uploadform").submit();
-        })
-
-        
-    </script>
-    <% include ./Partials/Footer.ejs %>
+<% include ./Partials/Footer.ejs %>

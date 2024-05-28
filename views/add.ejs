@@ -1,13 +1,27 @@
 <% include ./Partials/Header.ejs %>
 
-<div class="w-full min-h-screen bg-zinc-800 px-10 py-5">
-    <h1 class="text-xl">create new post</h1>
-    <hr class="opacity-10 mt-3">
-    <form action="/createpost"method="POST" enctype="multipart/form-data" class="py-4">
-        <input type="file" class="py-4" name="postimage"> <br>
-        <input type="text" placeholder="Title" class="my-4"> <br>
-        <textarea placeholder="Description" name="description" class="h-60"></textarea><br>
-        <input type="submit" value="createpost" class="bg-red-900">
-    </form>
+<div class="w-full min-h-screen bg-zinc-800 px-6 py-8 text-zinc-200 flex flex-col items-center">
+    <div class="w-full max-w-2xl">
+        <h1 class="text-3xl font-bold mb-6 text-center">Create New Post</h1>
+        <hr class="opacity-10 mb-6">
+        <form action="/createpost" method="POST" enctype="multipart/form-data" class="space-y-6">
+            <div class="flex flex-col space-y-2">
+                <label for="postimage" class="text-lg">Upload Image</label>
+                <input type="file" id="postimage" name="postimage" class="py-2 px-4 bg-zinc-700 rounded text-zinc-200 focus:outline-none focus:ring-2 focus:ring-red-500">
+            </div>
+            <div class="flex flex-col space-y-2">
+                <label for="title" class="text-lg">Title</label>
+                <input type="text" id="title" name="title" placeholder="Title" class="w-full py-2 px-4 bg-zinc-700 rounded text-zinc-200 focus:outline-none focus:ring-2 focus:ring-red-500">
+            </div>
+            <div class="flex flex-col space-y-2">
+                <label for="description" class="text-lg">Description</label>
+                <textarea id="description" name="description" placeholder="Description" class="w-full h-60 py-2 px-4 bg-zinc-700 rounded text-zinc-200 focus:outline-none focus:ring-2 focus:ring-red-500"></textarea>
+            </div>
+            <div class="flex justify-center">
+                <input type="submit" value="Create Post" class="bg-red-900 text-zinc-200 py-2 px-6 rounded hover:bg-red-800 focus:outline-none focus:ring-2 focus:ring-red-500 cursor-pointer">
+            </div>
+        </form>
+    </div>
 </div>
+
 <% include ./Partials/Footer.ejs %>
