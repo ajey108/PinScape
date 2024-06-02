@@ -19,7 +19,7 @@ app.set('view engine', 'ejs');
 
 app.use(expressSession({
   resave: false,
-  saveUninitalized: false,
+  saveUninitialized: false,
   secret: "hey hey"
 
 }));
