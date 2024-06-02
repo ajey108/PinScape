@@ -1,28 +1,39 @@
 const mongoose = require('mongoose');
-const plm = require('passport-local-mongoose');
+const passportLocalMongoose = require('passport-local-mongoose');
 
-mongoose.connect('mongodb://127.0.0.1:27017/pin');
-
-const userSchema = mongoose.Schema({
-  username: String,
-  name: String,
-  email: String,
-  password: String,
-  profileImage: String, 
-  contact: Number,
+const userSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  profileImage: {
+    type: String
+  },
+  contact: {
+    type: Number,
+    required: true
+  },
   boards: {
     type: Array,
     default: []
   },
-  posts:[
-    {
-      type:mongoose.Schema.Types.ObjectId,
-      ref:"post"
-    }
-  ]
+  posts: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Post'
+  }]
 });
 
 // Plugin passport-local-mongoose to enable username and password authentication
-userSchema.plugin(plm);
+userSchema.plugin(passportLocalMongoose);
 
-module.exports = mongoose.model('User', userSchema); 
+module.exports = mongoose.model('User', userSchema);
