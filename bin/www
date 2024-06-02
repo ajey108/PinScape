@@ -1,92 +1,75 @@
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const expressSession = require('express-session');
-const passport = require('passport');
-require('//127.0.0.1:27017/pin'); // Ensure this points to your db.js file
-const createError = require('http-errors');
+#!/usr/bin/env node
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+/**
+ * Module dependencies.
+ */
 
-const app = express();
+var app = require('../app');
+var debug = require('debug')('pintrest:server');
+var http = require('http');
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+/**
+ * Get port from environment and store in Express.
+ */
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(expressSession({
-  resave: false,
-  saveUninitialized: false,
-  secret: "hey hey"
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-passport.use(new passport.LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
-
-// error handler
-app.use(function(err, req, res, next) {
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-// Start the server and handle errors
-const port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
-const server = app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
+/**
+ * Create HTTP server.
+ */
 
+var server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
 server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
 
 function normalizePort(val) {
-  const port = parseInt(val, 10);
+  var port = parseInt(val, 10);
+
   if (isNaN(port)) {
+    // named pipe
     return val;
   }
+
   if (port >= 0) {
+    // port number
     return port;
   }
+
   return false;
 }
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
 
 function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
 
-  const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
 
+  // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(`${bind} requires elevated privileges`);
+      console.error(bind + ' requires elevated privileges');
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(`${bind} is already in use`);
+      console.error(bind + ' is already in use');
       process.exit(1);
       break;
     default:
@@ -94,4 +77,14 @@ function onError(error) {
   }
 }
 
-module.exports = app;
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
