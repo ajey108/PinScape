@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const expressSession = require('express-session');
 const passport = require('passport');
-require('./db'); // Ensure this points to your db.js file
+require('//127.0.0.1:27017/pin'); // Ensure this points to your db.js file
 const createError = require('http-errors');
 
 const indexRouter = require('./routes/index');
