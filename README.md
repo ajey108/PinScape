@@ -3,8 +3,12 @@
 #Features
 
 1.User Can Change their Profile picture and Update details 
+
 2. User can Upload Images,Add Title and Description.
+   
 3. User Can Register.
+
+
 4.User Can SignIn and SignOut
 
 
